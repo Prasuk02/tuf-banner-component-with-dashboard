@@ -4,7 +4,7 @@ import { UpdatedBannerData } from "@/types/banner";
 import React, { useState, useRef } from "react";
 
 interface props {
-  data: UpdatedBannerData
+  data: UpdatedBannerData | null
 }
 
 const EditBannerForm = ({ data }: props) => {
@@ -13,11 +13,12 @@ const EditBannerForm = ({ data }: props) => {
     description: '',
     link: '',
     isVisible: false,
-    expiresIn: '2024-12-08T19:14:03'
+    expiresIn: new Date()
   })
 
   const saveBannerDetails = async () => {
     try {
+
       await updateBanner(bannerDetails);
     } catch (error) {
       console.log(error);
@@ -28,6 +29,7 @@ const EditBannerForm = ({ data }: props) => {
     const fieldName = event.target.name;
     let value;
     if (fieldName === 'isVisible') {
+      //@ts-ignore
       value = isBannerVisible.current?.checked;
     } else {
       value = event.target.value
@@ -58,6 +60,7 @@ const EditBannerForm = ({ data }: props) => {
           id="banner-timer"
           className="input-text-field"
           onChange={(event) => handleUserDetails(event)}
+          //@ts-ignore
           value={bannerDetails.expiresIn}
         />
       </div>
@@ -83,6 +86,7 @@ const EditBannerForm = ({ data }: props) => {
           name="isVisible"
           id="banner-visibility"
           className="border-[1px] border-[#999999] w-[20px] h-[20px] accent-brand-primary"
+          //@ts-ignore
           ref={isBannerVisible}
           onChange={(event) => handleUserDetails(event)}
           checked={bannerDetails.isVisible}
