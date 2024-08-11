@@ -17,7 +17,7 @@ const Navbar = (props: Props) => {
         {/* Dashboard Button */}
         <div>
           <Link 
-            href={"#"} 
+            href={"/dashboard"} 
             className='bg-brand-primary px-5 py-2 text-sm text-white font-normal rounded-md'>
               Dashboard
           </Link>

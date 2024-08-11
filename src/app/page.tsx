@@ -1,26 +1,33 @@
+"use server";
+import { getBannerData } from "@/api/banner";
 import Banner from "@/components/global/Banner";
 import Navbar from "@/components/global/Navbar";
-import Image from "next/image";
+import { db } from "@/db";
 
-export default function Home() {
+export default async function Home() {
+  const bannerData = await getBannerData();
   return (
     <main>
       {/* Navbar golbal component */}
-      <Navbar/>
+      <Navbar />
 
       <div className="w-full flex flex-col items-center mt-24">
         {/* Header Section */}
         <section className="text-center">
-          <h1 className="text-5xl text-[#111111] font-bold">Prep Like a
+          <h1 className="text-5xl text-[#111111] font-bold">
+            Prep Like a
             <span className="text-brand-primary">&nbsp;Pro:&nbsp;</span>
             Your Go-To Hub for Student Success!
           </h1>
-          <p className="text-base text-[#888888] mt-6">Chart Your Learning Journey: Conquer DSA, Master CS Concepts, Design Systems, Sharpen Competitive Skills, and Ace Interviews with Ease!</p>
+          <p className="text-base text-[#888888] mt-6">
+            Chart Your Learning Journey: Conquer DSA, Master CS Concepts, Design
+            Systems, Sharpen Competitive Skills, and Ace Interviews with Ease!
+          </p>
         </section>
 
         {/* Banner Section */}
         <section className="w-[80%] mt-10">
-          <Banner/>
+          {bannerData && bannerData?.isVisible && <Banner />}
         </section>
       </div>
     </main>
